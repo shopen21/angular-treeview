@@ -24,9 +24,7 @@ export class TreeViewComponent implements OnChanges {
   }
 
   getInitialNodeVM(node: TreeNode): TreeNodeVM {
-    return new TreeNodeVM(
-      node,
-      false);
+    return new TreeNodeVM(node, false);
   }
 
   toggleNode(node: TreeNodeVM) {
