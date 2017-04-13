@@ -8,6 +8,13 @@ import { TreeNode } from "app/entities/tree-node";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  ngOnInit(): void {
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            this.tree = [...this.tree, {id: 10 + i, label: "Folder"+5+i, children:[]}];
+        }, i*1000);
+      }
+  }
   tree: TreeNode[] = [
       {
           id: 1, label: "Folder1", children: [
@@ -28,6 +35,4 @@ export class AppComponent {
       },
       { id:3, label: "Folder3", children: []}
   ];
-
-  treeBS = new BehaviorSubject<TreeNode[]>(this.tree);
 }

@@ -1,9 +1,8 @@
-﻿import { Component, Input, OnInit,TemplateRef, ContentChild } from '@angular/core'
+﻿import { Component, Input, OnChanges, TemplateRef, ContentChild } from '@angular/core'
 import { TreeNode } from "../entities/tree-node"
 import { TreeNodeVM } from "./tree-node-vm"
 import { BehaviorSubject } from "rxjs/BehaviorSubject"
 
-import {TreeItemComponent} from "./tree-item.component"
 
 @Component({
     selector: 'tree-view',
@@ -20,18 +19,16 @@ import {TreeItemComponent} from "./tree-item.component"
         }
     `]
 })
-export class TreeViewComponent implements OnInit{
-    @Input() private treeBS: BehaviorSubject<TreeNode[]>;
+export class TreeViewComponent implements OnChanges{
+    @Input() private tree: TreeNode[];
     private treeVM: TreeNodeVM[];
 
-    ngOnInit(): void {
-        this.treeBS.subscribe((newTree: TreeNode[]) => {
-            this.rebuildTreeVM(newTree);
-        });
+    ngOnChanges(): void {
+        this.rebuildTreeVM()
     }
 
-    rebuildTreeVM(newTree: TreeNode[]) {
-        this.treeVM = newTree.map((node: TreeNode) => this.getInitialNodeVM(node));
+    rebuildTreeVM() {
+        this.treeVM = this.tree.map((node: TreeNode) => this.getInitialNodeVM(node));
     }
 
     getInitialNodeVM(node: TreeNode): TreeNodeVM {
@@ -48,9 +45,5 @@ export class TreeViewComponent implements OnInit{
             return;
         }
         node.isExpanded = ! node.isExpanded;
-    }
-
-    private getChilden(node: TreeNode): BehaviorSubject<TreeNode[]> {
-        return new BehaviorSubject<TreeNode[]>(node.children);
     }
 }
