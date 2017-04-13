@@ -7,17 +7,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject"
 @Component({
     selector: 'tree-view',
     templateUrl: './treeview.component.html',
-    styles: [`
-        .inner-tree{
-            padding-left: 5px;
-        }
-        .inactive{
-            color: grey;
-        }
-        ul{
-            list-style-type: none;
-        }
-    `]
+    styleUrls: ['treeview.component.css']
 })
 export class TreeViewComponent implements OnChanges{
     @Input() private tree: TreeNode[];
@@ -40,10 +30,14 @@ export class TreeViewComponent implements OnChanges{
         );
     }
 
-    private toggleNode(node: TreeNodeVM) {
+    toggleNode(node: TreeNodeVM) {
         if (! node.children) {
             return;
         }
         node.isExpanded = ! node.isExpanded;
+    }
+
+    canToggle(node: TreeNodeVM) {
+      return node.children && node.children.length > 0;
     }
 }
