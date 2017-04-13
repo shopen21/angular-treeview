@@ -5,11 +5,10 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TreeViewComponent } from "app/treeview-component/treeview.component";
-import { TreeItemComponent } from "app/treeview-component/tree-item.component";
 
 @NgModule({
   declarations: [
-    AppComponent, TreeViewComponent, TreeItemComponent
+    AppComponent, TreeViewComponent
   ],
   imports: [
     BrowserModule,

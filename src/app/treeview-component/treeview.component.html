@@ -1,10 +1,10 @@
-﻿<ul class="tree-container">
+<ul class="tree-container">
     <li class="item-container" *ngFor="let node of treeVM" [ngClass]="{'item-container--leaf': !node.children?.length}">
         <div (click)="toggleNode(node)" class="tree-item" [class.tree-item--clickable]="canToggle(node)">
-            <tree-item [node]="node"></tree-item>
+          {{node.label}}
         </div>
         <div class="inner-tree" *ngIf="node.isExpanded">
-            <tree-view [treeBS]="getChilden(node)">
+            <tree-view [tree]="node.children">
             </tree-view>
         </div>
     </li>
