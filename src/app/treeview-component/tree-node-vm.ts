@@ -2,9 +2,23 @@
 
 export class TreeNodeVM {
     constructor(
-        public id: number,
-        public isExpanded: boolean,
-        public label: string,
-        public children: TreeNode[]
+        private innerNode: TreeNode,
+        public isExpanded?: boolean
     ) { }
+
+    public get id() {
+      return this.innerNode.id;
+    }
+
+    public get label() {
+      return this.innerNode.label;
+    }
+
+    public get children() {
+      return this.innerNode.children;
+    }
+
+    public get node() {
+      return this.innerNode;
+    }
 }

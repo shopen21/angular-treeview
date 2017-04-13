@@ -1,8 +1,6 @@
-﻿import { Component, Input, OnChanges, TemplateRef, ContentChild } from '@angular/core'
+﻿import { Component, Input, OnChanges } from '@angular/core'
 import { TreeNode } from "../entities/tree-node"
 import { TreeNodeVM } from "./tree-node-vm"
-import { BehaviorSubject } from "rxjs/BehaviorSubject"
-
 
 @Component({
     selector: 'tree-view',
@@ -23,11 +21,8 @@ export class TreeViewComponent implements OnChanges{
 
     getInitialNodeVM(node: TreeNode): TreeNodeVM {
         return new TreeNodeVM(
-            node.id,
-            false,
-            node.label,
-            node.children
-        );
+            node,
+            false);
     }
 
     toggleNode(node: TreeNodeVM) {
