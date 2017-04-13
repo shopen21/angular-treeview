@@ -1,0 +1,15 @@
+.inner-tree {
+  padding-left: 5px;
+}
+
+.item-container.item-container--leaf {
+  color: grey;
+}
+
+.tree-item.tree-item--clickable {
+  cursor: pointer;
+}
+
+.tree-container {
+  list-style-type: none;
+}

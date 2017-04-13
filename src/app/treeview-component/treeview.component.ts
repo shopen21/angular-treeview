@@ -8,17 +8,7 @@ import {TreeItemComponent} from "./tree-item.component"
 @Component({
     selector: 'tree-view',
     templateUrl: './treeview.component.html',
-    styles: [`
-        .inner-tree{
-            padding-left: 5px;
-        }
-        .inactive{
-            color: grey;
-        }
-        ul{
-            list-style-type: none;
-        }
-    `]
+    styleUrls: ['treeview.component.css']
 })
 export class TreeViewComponent implements OnInit{
     @Input() private treeBS: BehaviorSubject<TreeNode[]>;
@@ -43,14 +33,18 @@ export class TreeViewComponent implements OnInit{
         );
     }
 
-    private toggleNode(node: TreeNodeVM) {
+    toggleNode(node: TreeNodeVM) {
         if (! node.children) {
             return;
         }
         node.isExpanded = ! node.isExpanded;
     }
 
-    private getChilden(node: TreeNode): BehaviorSubject<TreeNode[]> {
+    canToggle(node: TreeNodeVM) {
+      return node.children && node.children.length > 0;
+    }
+
+    getChilden(node: TreeNode): BehaviorSubject<TreeNode[]> {
         return new BehaviorSubject<TreeNode[]>(node.children);
     }
 }
