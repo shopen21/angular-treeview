@@ -40,8 +40,4 @@ export class TreeViewComponent implements OnChanges{
     canToggle(node: TreeNodeVM) {
       return node.children && node.children.length > 0;
     }
-
-    getChilden(node: TreeNode): BehaviorSubject<TreeNode[]> {
-        return new BehaviorSubject<TreeNode[]>(node.children);
-    }
 }
