@@ -13,7 +13,8 @@ export class TreeViewComponent implements OnChanges {
   @Input() private tree: TreeNode[];
   private treeVM: TreeNodeVM[];
 
-  @Input() @ContentChild(TemplateRef) itemTemplate;
+  @Input() @ContentChild("leafTemplate") leafTemplate:TemplateRef<any>;
+  @Input() @ContentChild("nodeTemplate") nodeTemplate:TemplateRef<any>;
 
   ngOnChanges(): void {
     this.rebuildTreeVM()

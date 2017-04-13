@@ -21,4 +21,8 @@ export class TreeNodeVM {
     public get node() {
       return this.innerNode;
     }
+
+    public get isLeaf():boolean {
+      return this.children.length === 0;
+    }
 }

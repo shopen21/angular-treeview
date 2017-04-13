@@ -1,9 +1,10 @@
 <h3>Tree-view demo</h3>
 <tree-view [tree]="tree">
-  <!--<ng-template  let-node="node">
-    Node {{node.label}}
-  </ng-template>-->
-  <ng-template let-node>
-    <span>#{{node.id}}: {{node.label}}</span>
+  <ng-template #leafTemplate let-node>
+    <span>#Leaf {{node.id}}: {{node.label}}</span>
+  </ng-template>
+
+  <ng-template #nodeTemplate let-node>
+    <span>#Node {{node.id}}: {{node.label}}</span>
   </ng-template>
 </tree-view>
