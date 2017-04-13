@@ -5,11 +5,10 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TreeViewComponent } from "app/treeview-component/treeview.component";
-import {InjectTemplateComponent} from "app/treeview-component/inject-template.component";
 
 @NgModule({
   declarations: [
-    AppComponent, TreeViewComponent, InjectTemplateComponent
+    AppComponent, TreeViewComponent
   ],
   imports: [
     BrowserModule,

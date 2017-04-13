@@ -1,8 +1,7 @@
 <ul class="tree-container">
     <li class="item-container" *ngFor="let node of treeVM" [ngClass]="{'item-container--leaf': !node.children?.length}">
         <div (click)="toggleNode(node)" class="tree-item" [class.tree-item--clickable]="canToggle(node)">
-          <inject-template [template]="itemTemplate" [data]="node.node"></inject-template>
-          <!--{{node.label}}-->
+          <ng-template *ngTemplateOutlet="itemTemplate; context: {$implicit: node.node}"></ng-template>
         </div>
         <div class="inner-tree" *ngIf="node.isExpanded">
             <tree-view [tree]="node.children" [itemTemplate]="itemTemplate">
