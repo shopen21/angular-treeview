@@ -3,6 +3,8 @@
 } from '@angular/core'
 import {TreeNode} from "../entities/tree-node"
 import {TreeNodeVM} from "./tree-node-vm"
+import {LeafItemTemplateComponent} from "./leaf-item-template.component";
+import {NodeItemTemplateComponent} from "./node-item-template.component";
 
 @Component({
   selector: 'tree-view',
@@ -13,7 +15,8 @@ export class TreeViewComponent implements OnChanges {
   @Input() private tree: TreeNode[];
   private treeVM: TreeNodeVM[];
 
-  @Input() @ContentChild(TemplateRef) itemTemplate;
+  @Input() @ContentChild(LeafItemTemplateComponent) leafTemplateHolder: LeafItemTemplateComponent;
+  @Input() @ContentChild(NodeItemTemplateComponent) nodeTemplateHolder: NodeItemTemplateComponent;
 
   ngOnChanges(): void {
     this.rebuildTreeVM()
@@ -34,9 +37,5 @@ export class TreeViewComponent implements OnChanges {
       return;
     }
     node.isExpanded = !node.isExpanded;
-  }
-
-  canToggle(node: TreeNodeVM) {
-    return node.children && node.children.length > 0;
   }
 }

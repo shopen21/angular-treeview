@@ -1,11 +1,14 @@
 <ul class="tree-container">
-    <li class="item-container" *ngFor="let node of treeVM" [ngClass]="{'item-container--leaf': !node.children?.length}">
-        <div (click)="toggleNode(node)" class="tree-item" [class.tree-item--clickable]="canToggle(node)">
-          <ng-template *ngTemplateOutlet="itemTemplate; context: {$implicit: node.node}"></ng-template>
-        </div>
-        <div class="inner-tree" *ngIf="node.isExpanded">
-            <tree-view [tree]="node.children" [itemTemplate]="itemTemplate">
-            </tree-view>
-        </div>
-    </li>
+  <li class="item-container" *ngFor="let node of treeVM" [ngClass]="{'item-container--leaf': node.isLeaf}">
+    <div (click)="toggleNode(node)" class="tree-item" [class.tree-item--clickable]="!node.isLeaf">
+      <ng-container [ngTemplateOutlet]="node.isLeaf ? leafTemplateHolder.template : nodeTemplateHolder.template"
+                    [ngTemplateOutletContext]="{$implicit: node.node}"></ng-container>
+    </div>
+    <div class="inner-tree" *ngIf="node.isExpanded">
+      <tree-view [tree]="node.children"
+                 [nodeTemplateHolder]="nodeTemplateHolder"
+                 [leafTemplateHolder]="leafTemplateHolder">
+      </tree-view>
+    </div>
+  </li>
 </ul>
