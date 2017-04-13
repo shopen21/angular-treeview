@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     for (let i = 0; i < 5; i++) {
         setTimeout(() => {
-            this.tree = [...this.tree, {id: 10 + i, label: "Folder"+5+i, children:[]}];
+            this.tree = [...this.tree, {id: 10 + i, label: "Folder"+(5+i), children:[]}];
         }, i*1000);
       }
   }
