@@ -2,8 +2,8 @@
 <tree-view [tree]="tree">
   <!--<ng-template  let-node="node">
     Node {{node.label}}
-  </ng-template>
-  <ng-template let-node="node">
-    Leaf {{node.label}}
   </ng-template>-->
+  <ng-template let-node="data">
+    <span>#{{node.id}}: {{node.label}}</span>
+  </ng-template>
 </tree-view>

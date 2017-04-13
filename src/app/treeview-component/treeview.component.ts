@@ -1,38 +1,42 @@
-﻿import { Component, Input, OnChanges } from '@angular/core'
-import { TreeNode } from "../entities/tree-node"
-import { TreeNodeVM } from "./tree-node-vm"
+﻿import {
+  Component, ContentChild, Input, OnChanges, TemplateRef
+} from '@angular/core'
+import {TreeNode} from "../entities/tree-node"
+import {TreeNodeVM} from "./tree-node-vm"
 
 @Component({
-    selector: 'tree-view',
-    templateUrl: './treeview.component.html',
-    styleUrls: ['treeview.component.css']
+  selector: 'tree-view',
+  templateUrl: './treeview.component.html',
+  styleUrls: ['treeview.component.css']
 })
-export class TreeViewComponent implements OnChanges{
-    @Input() private tree: TreeNode[];
-    private treeVM: TreeNodeVM[];
+export class TreeViewComponent implements OnChanges {
+  @Input() private tree: TreeNode[];
+  private treeVM: TreeNodeVM[];
 
-    ngOnChanges(): void {
-        this.rebuildTreeVM()
-    }
+  @Input() @ContentChild(TemplateRef) itemTemplate;
 
-    rebuildTreeVM() {
-        this.treeVM = this.tree.map((node: TreeNode) => this.getInitialNodeVM(node));
-    }
+  ngOnChanges(): void {
+    this.rebuildTreeVM()
+  }
 
-    getInitialNodeVM(node: TreeNode): TreeNodeVM {
-        return new TreeNodeVM(
-            node,
-            false);
-    }
+  rebuildTreeVM() {
+    this.treeVM = this.tree.map((node: TreeNode) => this.getInitialNodeVM(node));
+  }
 
-    toggleNode(node: TreeNodeVM) {
-        if (! node.children) {
-            return;
-        }
-        node.isExpanded = ! node.isExpanded;
-    }
+  getInitialNodeVM(node: TreeNode): TreeNodeVM {
+    return new TreeNodeVM(
+      node,
+      false);
+  }
 
-    canToggle(node: TreeNodeVM) {
-      return node.children && node.children.length > 0;
+  toggleNode(node: TreeNodeVM) {
+    if (!node.children) {
+      return;
     }
+    node.isExpanded = !node.isExpanded;
+  }
+
+  canToggle(node: TreeNodeVM) {
+    return node.children && node.children.length > 0;
+  }
 }
