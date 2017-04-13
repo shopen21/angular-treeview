@@ -11,7 +11,7 @@ export class AppComponent {
   ngOnInit(): void {
     for (let i = 0; i < 10; i++) {
         setTimeout(() => {
-            this.tree = [...this.tree, {id: 10 + i, label: "Folder"+5+i, children:[]}];
+            this.tree = [...this.tree, {id: 10 + i, label: "Folder"+(5+i), children:[]}];
         }, i*1000);
       }
   }
