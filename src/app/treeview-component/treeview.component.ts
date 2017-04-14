@@ -5,6 +5,7 @@ import {TreeNode} from "../entities/tree-node"
 import {TreeNodeVM} from "./tree-node-vm"
 import {LeafItemTemplateComponent} from "./leaf-item-template.component";
 import {NodeItemTemplateComponent} from "./node-item-template.component";
+import {ControlValueAccessor} from "@angular/forms";
 
 @Component({
   selector: 'tree-view',
@@ -12,11 +13,14 @@ import {NodeItemTemplateComponent} from "./node-item-template.component";
   styleUrls: ['treeview.component.css']
 })
 export class TreeViewComponent implements OnChanges {
-  @Input() private tree: TreeNode[];
-  private treeVM: TreeNodeVM[];
-
   @Input() @ContentChild(LeafItemTemplateComponent) leafTemplateHolder: LeafItemTemplateComponent;
   @Input() @ContentChild(NodeItemTemplateComponent) nodeTemplateHolder: NodeItemTemplateComponent;
+
+  @Input() tree: TreeNode[];
+
+  selectedNode: TreeNode = null;
+
+  treeVM: TreeNodeVM[];
 
   ngOnChanges(): void {
     this.rebuildTreeVM()
@@ -24,6 +28,7 @@ export class TreeViewComponent implements OnChanges {
 
   rebuildTreeVM() {
     this.treeVM = this.tree.map((node: TreeNode) => this.getInitialNodeVM(node));
+    this.selectedNode = this.treeVM && this.treeVM.length > 0 && this.treeVM[0].node;
   }
 
   getInitialNodeVM(node: TreeNode): TreeNodeVM {
