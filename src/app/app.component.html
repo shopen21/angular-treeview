@@ -1,5 +1,8 @@
 <h3>Tree-view demo</h3>
-<tree-view [tree]="tree">
+
+<span>Selected treeview node is {{selectedNode?.label || "Nothing"}}</span>
+
+<tree-view [tree]="tree" [(ngModel)]="selectedNode">
   <ng-template #leafTemplate let-node>
     <span>#Leaf {{node.id}}: {{node.label}}</span>
   </ng-template>
