@@ -39,7 +39,6 @@ export class TreeViewComponent implements OnChanges, ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {}
-
   setDisabledState(isDisabled: boolean): void {}
 
   @Input() private tree: TreeNode[];
