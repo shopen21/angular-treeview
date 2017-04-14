@@ -1,5 +1,5 @@
 <h3>Tree-view demo</h3>
-<tree-view [tree]="tree">
+<tree-view [tree]="tree" [(ngModel)]="selectedNode">
 
   <node-template>
     <ng-template let-node>
@@ -14,3 +14,8 @@
   </leaf-template>
 
 </tree-view>
+
+<hr/>
+<p>Selected Node:</p>
+<pre>{{selectedNode | json}}</pre>
+<button (click)="selectSpecificNode()">Select File2</button>

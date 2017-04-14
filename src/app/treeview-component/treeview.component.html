@@ -1,14 +1,18 @@
 <ul class="tree-container">
   <li class="item-container" *ngFor="let nodeVm of treeVM" [ngClass]="{'item-container--leaf': nodeVm.isLeaf}">
     <div class="tree-item"
-         [class.tree-item--selected]="nodeVm.node === selectedNode">
-      <div class="tree-item__expander" *ngIf="!nodeVm.isLeaf" (click)="toggleNode(nodeVm)">{{nodeVm.isExpanded ? '-' : '+'}}</div>
+         [class.tree-item--selected]="nodeVm.node === selectedNode"
+         (click)="selectNode(nodeVm, $event)">
+      <div class="tree-item__expander" *ngIf="!nodeVm.isLeaf" (click)="toggleNode(nodeVm, $event)">
+        {{nodeVm.isExpanded ? '-' : '+'}}
+      </div>
       <div [ngTemplateOutlet]="nodeVm.isLeaf ? leafTemplateHolder.template : nodeTemplateHolder.template"
-                    [ngTemplateOutletContext]="{$implicit: nodeVm.node}"
+           [ngTemplateOutletContext]="{$implicit: nodeVm.node}"
            class="tree-item__template"></div>
     </div>
     <div class="inner-tree" *ngIf="nodeVm.isExpanded">
       <tree-view [tree]="nodeVm.children"
+                 [(ngModel)]="selectedNode"
                  [nodeTemplateHolder]="nodeTemplateHolder"
                  [leafTemplateHolder]="leafTemplateHolder">
       </tree-view>

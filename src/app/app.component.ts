@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { TreeNode } from "app/entities/tree-node";
 
 @Component({
@@ -28,6 +27,12 @@ export class AppComponent implements OnInit {
     },
     { id:3, label: "Folder3", children: []}
   ];
+
+  selectedNode: TreeNode = null;
+
+  selectSpecificNode(): void {
+    this.selectedNode = this.tree[0].children[1];
+  }
 
   ngOnInit(): void {
     for (let i = 0; i < 5; i++) {
