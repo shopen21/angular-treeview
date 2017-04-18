@@ -3,7 +3,8 @@ import {TreeNode} from "../entities/tree-node"
 import {TreeNodeVM} from "./tree-node-vm"
 import {LeafItemTemplateComponent} from "./leaf-item-template.component";
 import {NodeItemTemplateComponent} from "./node-item-template.component";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { INode } from "app/treeview-component/i-node";
 
 @Component({
   selector: 'tree-view',
@@ -20,23 +21,31 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 export class TreeViewComponent implements OnChanges, ControlValueAccessor {
   @Input() @ContentChild(LeafItemTemplateComponent) leafTemplateHolder: LeafItemTemplateComponent;
   @Input() @ContentChild(NodeItemTemplateComponent) nodeTemplateHolder: NodeItemTemplateComponent;
+  @Input() tree: INode[];
+  @Input() ngModelProperty: string;  
 
-  @Input() tree: TreeNode[];
+  @Input() isDisabled: boolean;
 
-  set selectedNode(value: TreeNode) {
+  set selectedItem(value: any) { 
+    if(value === this.selectedNodeField){
+      return;
+    }
     this.selectedNodeField = value;
     this.selectedNodeChange(this.selectedNodeField);
   }
 
-  get selectedNode(): TreeNode {
+  get selectedItem(): any {
     return this.selectedNodeField;
   }
 
   treeVM: TreeNodeVM[];
 
-  private selectedNodeField: TreeNode = null;
+  private selectedNodeField: any = null;
 
   private selectedNodeChange = (_: any) => {
+  };
+  
+  private nodeTouched = (_: any) => {
   };
 
   ngOnChanges(): void {
@@ -44,23 +53,23 @@ export class TreeViewComponent implements OnChanges, ControlValueAccessor {
   }
 
   rebuildTreeVM() {
-    this.treeVM = this.tree.map((node: TreeNode) => TreeViewComponent.getInitialNodeVM(node));
+    this.treeVM = this.tree.map((node: INode) => TreeViewComponent.getInitialNodeVM(node));
   }
 
-  static getInitialNodeVM(node: TreeNode): TreeNodeVM {
+  static getInitialNodeVM(node: INode): TreeNodeVM {
     return new TreeNodeVM(node, false);
   }
 
   toggleNode(node: TreeNodeVM, $event) {
     $event.stopPropagation();
-    if (!node.children) {
+    if (!node.children || this.isDisabled) {
       return;
     }
     node.isExpanded = !node.isExpanded;
   }
 
-  writeValue(value: TreeNode): void {
-    this.selectedNode = value;
+  writeValue(value: any): void {
+    this.selectedItem = value;
   }
 
   registerOnChange(fn: any): void {
@@ -68,12 +77,19 @@ export class TreeViewComponent implements OnChanges, ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {
+    this.nodeTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
   }
 
   selectNode(nodeVM: TreeNodeVM): void {
-    this.selectedNode = nodeVM.node;
+    if(this.isDisabled)
+    {
+      return;
+    }
+    this.selectedItem = this.ngModelProperty ? nodeVM.node[this.ngModelProperty]:nodeVM.node;
+    this.nodeTouched(nodeVM);
   }
 }

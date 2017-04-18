@@ -1,8 +1,9 @@
 ﻿import { TreeNode } from "../entities/tree-node"
+import { INode } from "app/treeview-component/i-node";
 
 export class TreeNodeVM {
     constructor(
-        private innerNode: TreeNode,
+        private innerNode: INode,
         public isExpanded?: boolean
     ) { }
 
@@ -10,12 +11,8 @@ export class TreeNodeVM {
       return this.innerNode.children;
     }
 
-    public get label() {
-      return this.innerNode.label;
-    }
-
     public get isLeaf() {
-      return !this.children || this.children.length === 0;
+      return this.children == undefined;
     }
 
     public get node() {

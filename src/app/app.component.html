@@ -1,21 +1,20 @@
 <h3>Tree-view demo</h3>
-<tree-view [tree]="tree" [(ngModel)]="selectedNode">
-
+<tree-view [tree]="tree" [(ngModel)]="selectedItem" ngModelProperty="id" [disabled]="treeDisabled? '':null">
+  
   <node-template>
     <ng-template let-node>
       Node #{{node.id}}: {{node.label}}
     </ng-template>
   </node-template>
 
-  <leaf-template>
-    <!--<ng-template let-node>
-      Leaf #{{node.id}}: {{node.label}}
-    </ng-template>-->
+  <leaf-template label="name">
   </leaf-template>
 
 </tree-view>
 
 <hr/>
-<p>Selected Node:</p>
-<pre>{{selectedNode | json}}</pre>
-<button (click)="selectSpecificNode()">Select File2</button>
+<p>Disable tree?</p>
+<input type="checkbox" [(ngModel)]="treeDisabled">
+<p>Selected Item:</p>
+<pre>{{selectedItem | json}}</pre>
+<!--<button (click)="selectSpecificNode()">Select File2</button>-->

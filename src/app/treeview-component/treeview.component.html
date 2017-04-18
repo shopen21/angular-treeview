@@ -1,7 +1,7 @@
 <ul class="tree-container">
   <li class="item-container" *ngFor="let nodeVm of treeVM" [ngClass]="{'item-container--leaf': nodeVm.isLeaf}">
     <div class="tree-item"
-         [class.tree-item--selected]="nodeVm.node === selectedNode"
+         [class.tree-item--selected]="nodeVm.node[ngModelProperty] == selectedItem"
          (click)="selectNode(nodeVm, $event)">
       <div class="tree-item__expander" *ngIf="!nodeVm.isLeaf" (click)="toggleNode(nodeVm, $event)">
         {{nodeVm.isExpanded ? '-' : '+'}}
@@ -12,9 +12,11 @@
     </div>
     <div class="inner-tree" *ngIf="nodeVm.isExpanded">
       <tree-view [tree]="nodeVm.children"
-                 [(ngModel)]="selectedNode"
+                 [(ngModel)]="selectedItem"
                  [nodeTemplateHolder]="nodeTemplateHolder"
-                 [leafTemplateHolder]="leafTemplateHolder">
+                 [leafTemplateHolder]="leafTemplateHolder"
+                 [ngModelProperty]="ngModelProperty"
+                 [disabled]="isDisabled? '':null">
       </tree-view>
     </div>
   </li>

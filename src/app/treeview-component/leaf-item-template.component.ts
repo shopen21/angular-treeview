@@ -5,7 +5,7 @@ import {ItemTemplateBaseComponent} from "./item-template-base.component";
   selector: 'leaf-template',
   template: `
     <ng-template #innerItemTemplate let-node>
-      <span *ngIf="!externalTemplate">* {{node.label}}</span>
+      <span *ngIf="!externalTemplate">* {{node[label]}}</span>
       <ng-template *ngIf="externalTemplate"
                    [ngTemplateOutlet]="externalTemplate"
                    [ngTemplateOutletContext]="{$implicit: node}"></ng-template>
